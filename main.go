@@ -1,21 +1,18 @@
 package main
 
 import (
+	routes "API-GO-REST/Routes"
+	"API-GO-REST/database"
+	"API-GO-REST/models"
 	"fmt"
-	"log"
-	"net/http"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Home Page")
-}
-
-func HandleResquest() {
-	http.HandleFunc("/", Home)
-	log.Fatal(http.ListenAndServe(":8000", nil))
-}
-
 func main() {
-	fmt.Println("Iniciando o Servidor Rest com GO")
-	HandleResquest()
+	models.Personalidades = []models.Personalidade{
+		{Id: 1, Nome: "Nome 1", Historia: "Historia 1"},
+		{Id: 2, Nome: "Nome 2", Historia: "Historia 2"},
+	}
+	database.ConectaComBancoDeDados()
+	fmt.Println("Iniciando o servidor Rest com Go")
+	routes.HandleResquest()
 }
